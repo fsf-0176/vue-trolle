@@ -11,8 +11,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/koa-bodyparser": "^4.3.0",
+    "@types/koa-router": "^7.4.1",
     "@types/node": "^14.10.3",
-    "koa": "^2.13.0"
+    "class-validator": "^0.12.2",
+    "koa": "^2.13.0",
+    "koa-bodyparser": "^4.3.0",
+    "koa-router": "^9.4.0",
+    "koa-ts-controllers": "^2.3.0"
   },
   "devDependencies": {
     "ts-node-dev": "^1.0.0-pre.62"
