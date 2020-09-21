@@ -7,10 +7,16 @@ import {
     Post,
     Query
 } from "koa-ts-controllers";
-import { IsNumberString } from 'class-validator'
+import { IsNumberString,IsNotEmpty } from 'class-validator'
 class GetUsersQuery {
     @IsNumberString()
     page: number;
+}
+class PostUserBody{
+    @IsNotEmpty({message:"用户名不能为空"})
+    name:string
+    @IsNotEmpty({message:"密码不能为空"})
+    password:string
 }
 @Controller('/test')
 class TestController {
@@ -48,24 +54,22 @@ class TestController {
     // }
 
 
-    // @Post('/user')
-    // async postUser(
-    //     @Body() body:{
-    //         name:string,
-    //         password:string
-    //     },
-    //     @Header() h:any
-    // ){
-    //     console.log(h);
+    @Post('/user')
+    async postUser(
+        @Body() body:PostUserBody,
+        @Header() h:any
+    ){
+        console.log(h);
 
-    //     return `当前提交的数据是${JSON.stringify(body)}`
-    // }
+        return `当前提交的数据是${JSON.stringify(body)}`
+    }
 
     @Get('/users')
     async getUsers(
         @Query() p: GetUsersQuery
     ) {
         console.log(p);
+  
         return `传过来的query：${p.page}`
 
     }

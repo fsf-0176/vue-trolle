@@ -1,5 +1,5 @@
 const configs = {
-    develop:{
+    development:{
         server:{
             host:"localhost",
             port:8080
@@ -20,5 +20,5 @@ const configs = {
 }
 type T = keyof typeof configs
 
-const NODE_EVN = process.env.NODE_ENV as T || "develop";
+const NODE_EVN = process.env.NODE_ENV as T || "development";
 export default configs[NODE_EVN]
