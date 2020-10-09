@@ -27,6 +27,15 @@ class TestController {
         return 'Hello Test!'
     }
 
+    @Get('/register')
+    async postUser(
+        @Body() body:PostUserBody,
+    ){
+
+        
+        return `当前提交的数据是${JSON.stringify(body)}`
+    }
+
     /**
      * 
      *  通过params获取， ..../id/1
@@ -54,23 +63,13 @@ class TestController {
     // }
 
 
-    @Post('/user')
-    async postUser(
-        @Body() body:PostUserBody,
-        @Header() h:any
-    ){
-        console.log(h);
-
-        return `当前提交的数据是${JSON.stringify(body)}`
-    }
-
-    @Get('/users')
-    async getUsers(
-        @Query() p: GetUsersQuery
-    ) {
-        console.log(p);
+    // @Get('/users')
+    // async getUsers(
+    //     @Query() p: GetUsersQuery
+    // ) {
+    //     console.log(p);
   
-        return `传过来的query：${p.page}`
+    //     return `传过来的query：${p.page}`
 
-    }
+    // }
 }

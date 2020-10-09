@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from "@/store";
 const Home = () => import(/* webpackChunkName: "Home" */ '../views/Home.vue')
 const Board = () => import(/* webpackChunkName: "Board" */ '../views/Board.vue')
 const Register = () => import(/* webpackChunkName: "Register" */ '../views/Register.vue')
@@ -13,12 +14,18 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+    meta:{
+      Auth:true
+    }
   },
   {
     path: '/board/:id(\\d+)',
     name: 'Board',
     component: Board,
+     meta:{
+      Auth:true
+    },
     children:[
       {
         path:'list/:listId(\\d+)/card/:cardId(\\d+)',
@@ -48,6 +55,17 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
-console.log(router);
-
+store.commit('user/initUserInfo');
+router.beforeEach((to,from,next)=>{
+    // 鉴权判断是否登录
+    if(
+      to.matched.some( matched => matched.meta.Auth) 
+      &&
+      !store.state.user.info
+    ){
+      next({name:'Login'})
+    }else{
+      next()
+    }
+})
 export default router
